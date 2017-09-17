@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+
+    {% block main %}
+                {% for post in post_list %}
+                <article class="post post-{{ post.pk }}">
+                    <header class="entry-header">
+                        <h1 class="entry-title">
+                            <a href="{% url 'myblog:detail' post.pk %}">{{ post.title }}</a>
+                        </h1>
+                        <div class="entry-meta">
+                            <span class="post-category"><a href="#">{{ post.category.name }}</a></span>
+                            <span class="post-date"><a href="#"><time class="entry-date"
+                                                                      datetime="{{ post.created_time }}">{{ post.created_time }}</time></a></span>
+                            <span class="post-author"><a href="#">{{ post.author }}</a></span>
+                            <span class="comments-link"><a href="#">4 评论</a></span>
+                            <span class="views-count"><a href="#">588 阅读</a></span>
+                        </div>
+                    </header>
+                    <div class="entry-content clearfix">
+                        <p>{{ post.excerpt }}</p>
+                        <div class="read-more cl-effect-14">
+                            <a href="{% url 'myblog:detail' post.pk %}" class="more-link">继续阅读 <span class="meta-nav">→</span></a>
+                        </div>
+                    </div>
+                </article>
+                {% empty %}
+                 <div class="no-post">暂时还没有发布的文章！</div>
+                {% endfor %}
+
+    {% endblock main %}
+
+    {% block toc %}
+{% load myblog_tags %}
+                <div class="widget widget-recent-posts">
+                      <h3 class="widget-title">最新文章</h3>
+                      {% get_recent_posts as recent_post_list %}
+                      <ul>
+                        {% for post in recent_post_list %}
+                            <li>
+                              <a href="{% url 'myblog:detail' post.pk %}">{{ post.title }}</a>
+                            </li>
+                        {% empty %}
+                            暂无文章！
+                        {% endfor %}
+                      </ul>
+                </div>
+                <div class="widget widget-archives">
+                    <h3 class="widget-title">归档</h3>
+                    {% archives as guidang %}
+                    <ul>
+                        {% for date in guidang%}
+                        <li>
+                              <a href="{% url 'myblog:archives' date.year date.month %}">{{ date.year }} 年 {{ date.month }} 月</a>
+                        </li>
+                        {% empty %}
+                            暂无文章！
+                        {% endfor %}
+                    </ul>
+
+                </div>
+
+                <div class="widget widget-category">
+                    <h3 class="widget-title">分类</h3>
+                    {% get_categories as fl_list %}
+                    <ul>
+                        {% for jg in fl_list %}
+                        <li>
+                            <a href="{% url 'myblog:category' jg.pk %}">{{ jg.name }} <span class="post-count">(13)</span></a>
+                        </li>
+                        {% empty %}
+                            暂无文章！
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="widget widget-tag-cloud">
+                    <h3 class="widget-title">标签云</h3>
+                    {% get_tag as tag_list%}
+                    <ul>
+                        {% for tag in tag_list %}
+                        <li>
+                            <a href="#">{{ tag.name }}</a>
+                        </li>
+                        {% empty %}
+                            暂无文章
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="rss">
+                    <a href=""><span class="ion-social-rss-outline"></span> RSS 订阅</a>
+                </div>
+    {% endblock toc %}
+
+
+
+
+
+
+
