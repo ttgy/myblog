@@ -25,7 +25,7 @@ SECRET_KEY = 'v6whr6nmt)dkv0c9a!ow$$-pb@u_k6au8wn^d)x#3_ub8cyt!6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','localhost','.paxingzhe.top']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -82,7 +82,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'blog',
         'USER':'root',
-        'PASSWORD':'123456',
+        'PASSWORD':'pxz1991@',
         'HOST':'localhost',
         'PORT':'3306',
     }
@@ -129,11 +129,11 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 
-STATICFILES_DIRS=[
-    os.path.join(BASE_DIR,'static')
-]
+#STATICFILES_DIRS=[
+#    os.path.join(BASE_DIR,'static')
+#]
 #开发阶段 上传文件目录
-MEDIA_ROOT = os.path.join(BASE_DIR,'static')
+STATIC_ROOT = os.path.join(BASE_DIR,'static/')
 
 
 #STATIC_ROOT = os.path.join(BASE_DIR, 'static')

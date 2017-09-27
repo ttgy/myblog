@@ -22,7 +22,6 @@ def index(request):
 #详情页
 def detail(request,pk):
     post = get_object_or_404(Post, pk=pk)
-    print(pk)
     post = Post.objects.get(pk=pk)
     post.body = markdown.markdown(post.body,
                                   extensions=[
@@ -61,24 +60,6 @@ def category(request, pk):
     print(post_list)
     return render(request, 'index.html', context={'post_list': post_list})
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+def aaa(request):
+     return render(request, 'index.html')
 
