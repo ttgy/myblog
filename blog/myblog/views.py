@@ -12,6 +12,9 @@ import markdown
 
 from .models import Post,Category
 
+
+from comments.models import *
+
 #首页
 def index(request):
     #return HttpResponse('hello world!')
@@ -28,7 +31,6 @@ def detail(request,pk):
     post = Post.objects.get(pk=pk)
     post.views = int(post.views+1)
     post.save()
-   
     post.body = markdown.markdown(post.body,
                                   extensions=[
                                       'markdown.extensions.extra',
