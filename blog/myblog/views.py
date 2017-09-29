@@ -19,10 +19,16 @@ def index(request):
     return render(request,'index.html',context={'post_list':post_list})
 
 
+#阅读量
+
 #详情页
 def detail(request,pk):
     post = get_object_or_404(Post, pk=pk)
+    #阅读量
     post = Post.objects.get(pk=pk)
+    post.views = int(post.views+1)
+    post.save()
+   
     post.body = markdown.markdown(post.body,
                                   extensions=[
                                       'markdown.extensions.extra',
@@ -47,7 +53,6 @@ def archives(request, year, month):
         month = '0'+month
     post_list = Post.objects.filter(create_time__startswith=year+'-'+month).order_by('-create_time')
                 #Entry.objects.filter(pub_date__month=12)
-    print(post_list)
     return render(request, 'index.html', context={'post_list': post_list})
 
 
